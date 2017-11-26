@@ -1,0 +1,11 @@
+{
+  "name": "edu",
+  "version": "1.0.0",
+  "description": "education project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Khimtsov Anton",
+  "license": "ISC"
+}
