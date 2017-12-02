@@ -1,7 +1,9 @@
-let ReactDOM = require('react-dom');
-let React = require('react');
+import ReactDOM from 'react-dom';
+import React from 'react';
+
+import Page from './components/page';
 
 ReactDOM.render(
-  <h2>Hello test react page</h2>,
+  <Page title="Main page">Контент страницы</Page>,
   document.getElementById('app')
 );
