@@ -13,7 +13,9 @@ const Header = styled.div`
   height: 50px;
   font-size: 20px;
 `;
-const Content = styled.div``;
+const Content = styled.div`
+  height: 100%;
+`;
 const Footer = styled.div`  
   height: 50px;
 `;
