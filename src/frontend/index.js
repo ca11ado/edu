@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import Page from './components/page';
+import Router from './router';
 
 const CubicContent = {
   name: 'Первый кубик',
@@ -8,9 +8,6 @@ const CubicContent = {
 };
 
 ReactDOM.render(
-  <Page title="Cubic page">
-    <h2>{ CubicContent.name }</h2>
-    <div>{ CubicContent.content }</div>
-  </Page>,
+  <Router/>,
   document.getElementById('app')
 );
