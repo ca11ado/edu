@@ -19,8 +19,7 @@ if [ $# -gt 0 ]; then
     if [ "$2" == "-start" ]; then
       if ! [[ $pid =~ $re ]] ; then
         echo starting node server
-        cd $HOME_PATH/$TRACKER_HOST
-        nohup node $HOME_PATH/$TRACKER_HOST/serverNode.js &
+        nohup node $HOME_PATH/$TRACKER_HOST/serverNode.js > $HOME_PATH/node-server-log/standart.log 2>$HOME_PATH/node-server-log/error.log &
         echo server running
       else
         echo this server already exists
