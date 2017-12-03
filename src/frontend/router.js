@@ -9,6 +9,7 @@ import {
 import Header from './components/page/header';
 import Footer from './components/page/footer';
 import Content from './components/page/content';
+import Cubic2 from './components/cubic';
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,6 +26,9 @@ const Main = () => (
 const Cubic = ({ match }) => (
   <Content>
     <h3>Cubic id: {match.params.cubicId}</h3>
+    <div>
+      <Cubic2/>
+    </div>
   </Content>
 );
 
