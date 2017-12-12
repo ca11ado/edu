@@ -1,0 +1,69 @@
+Инструкция предполагает, что:
+1) Все действия выполняются на голом Debian 9 (совместимость с другими ОС не проверялась)
+2) Все действия выполняются в вагранте от юзера vagrant. Для боевой системы действия следует выполнять от того юзера, под которым всё будет запускаться.
+
+
+Итак, шаги установки:
+
+1) Ставим основные пакеты, по желанию после update можно выполнить upgrade
+
+sudo apt-get install debian-keyring debian-archive-keyring
+sudo apt-get update
+sudo apt-get install mysql-server - здесь может спросить рутовый пароль, а может не спросить. По умолчанию рутовый пароль пустой.
+# sudo mysql_secure_installation - только на боевом сервере, на локальной машине не имеет смысла
+
+2) Настраиваем БД
+
+sudo mysql -u root -p - ввести рутовый пароль, когда спросит
+
+В мускуле выполнить:
+ create database tracker;
+ create user 'tracker'@'localhost' identified by 'tracker';
+ grant all on tracker.* to 'tracker' identified by 'tracker';
+ ALTER DATABASE tracker CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ FLUSH PRIVILEGES;
+ exit;
+ 
+3) Ставим пайтон и гит
+ 
+sudo apt-get install -y build-essential libssl-dev libffi-dev python3-dev git python3 python3-pip 
+sudo apt-get install -y python3-venv
+
+4) Создаём виртуальное окружение
+
+cd ~
+mkdir tracker
+cd tracker
+
+pyvenv env
+
+5) Качаем проект
+
+cd /vagrant
+git clone https://github.com/ca11ado/edu.git tracker
+
+6) Ставим зависимости
+
+/home/vagrant/tracker/env/bin/pip install -r  /vagrant/tracker/src/backend/requirements/base.txt
+
+7) Настраиваем окружение
+
+mkdir /home/vagrant/tracker/envdir
+
+echo 'Vagrant' > /home/vagrant/tracker/envdir/DJANGO_CONFIGURATION
+
+echo -e '#!/bin/bash \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir/ /home/vagrant/tracker/env/bin/python3 /vagrant/tracker/src/backend/api/manage.py $*' > /home/vagrant/venvmng
+
+echo -e '#!/bin/bash \nset -e \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir /home/vagrant/tracker/env/bin/pip $*' > /home/vagrant/venvpip
+
+chmod +x /home/vagrant/venvmng
+chmod +x /home/vagrant/venvpip
+
+8) Запускаем миграции
+
+/home/vagrant/venvmng makemigrations --merge
+/home/vagrant/venvmng migrate
+
+9) Готово!
+
+Сервер запускается командой sudo /home/vagrant/venvmng runserver 0.0.0.0:8080 , стопается через Ctrl+C
