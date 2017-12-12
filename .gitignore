@@ -2,3 +2,5 @@
 .git
 public
 node_modules
+__pycache__
+/src/backend/api/db.sqlite3
