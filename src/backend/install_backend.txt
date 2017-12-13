@@ -64,12 +64,24 @@ chmod +x /home/vagrant/venvpip
 /home/vagrant/venvmng makemigrations --merge
 /home/vagrant/venvmng migrate
 
-) Ставим gunicorn:
+9) Ставим gunicorn:
 
 /home/vagrant/venvpip install git+https://github.com/benoitc/gunicorn.git
 echo -e '#!/bin/bash \nset -e \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir /home/vagrant/tracker/env/bin/gunicorn $*' > /home/vagrant/venvgunicorn
 chmod +x /home/vagrant/venvgunicorn
 
-9) Готово!
+10) Ставим supervisor
+sudo apt-get install supervisor
 
-Сервер запускается командой sudo /home/vagrant/venvgunicorn config.wsgi:application --bind 0.0.0.0:8080 , стопается через Ctrl+C
+sudo touch /etc/supervisor/conf.d/tracker.conf
+sudo chmod 777 /etc/supervisor/conf.d/tracker.conf
+sudo echo -e ' [program:tracker] \n command=/home/vagrant/venvgunicorn config.wsgi:application --bind 0.0.0.0:8080 -w 3 --timeout 600 --access-logfile /tmp/gunicorn.access-tracker.log --error-logfile /tmp/gunicorn.error-tracker.log' >> /etc/supervisor/conf.d/tracker.conf
+sudo echo -e ' directory=/vagrant/tracker/src/backend/api \n user=vagrant \n autostart=true \n autorestart=true \n redirect_stderr=True' >> /etc/supervisor/conf.d/tracker.conf
+
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start tracker
+
+11) Готово!
+
+Сервер запускается автоматически на порту 8080.
