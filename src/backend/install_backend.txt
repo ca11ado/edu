@@ -64,6 +64,12 @@ chmod +x /home/vagrant/venvpip
 /home/vagrant/venvmng makemigrations --merge
 /home/vagrant/venvmng migrate
 
+) Ставим gunicorn:
+
+/home/vagrant/venvpip install git+https://github.com/benoitc/gunicorn.git
+echo -e '#!/bin/bash \nset -e \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir /home/vagrant/tracker/env/bin/gunicorn $*' > /home/vagrant/venvgunicorn
+chmod +x /home/vagrant/venvgunicorn
+
 9) Готово!
 
-Сервер запускается командой sudo /home/vagrant/venvmng runserver 0.0.0.0:8080 , стопается через Ctrl+C
+Сервер запускается командой sudo /home/vagrant/venvgunicorn config.wsgi:application --bind 0.0.0.0:8080 , стопается через Ctrl+C
