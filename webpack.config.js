@@ -2,6 +2,9 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const merge = require("webpack-merge");
+
+const parts = require('./webpack.parts');
 
 const PATHS = {
   app: path.join(__dirname, "src/frontend"),
@@ -39,27 +42,18 @@ const commonConfig = {
   }
 };
 
-const productionConfig = () => {
-  const config = {};
+const productionConfig = merge([]);
 
-  return Object.assign({}, commonConfig, config);
-};
-const developmentConfig = () => {
-  const config = {
-    devServer: {
-      stats: 'errors-only',
-      host: process.env.HOST,
-      port: 3008,//process.env.PORT
-      historyApiFallback: true
-    }
-  };
-  
-  return Object.assign({}, commonConfig, config);
-};
+const developmentConfig = merge([
+  parts.devServer({
+    host: process.env.HOST,
+    port: 3008 // process.env.PORT
+  })
+]);
 
 module.exports = env => {
   if (env === 'production') {
-    return productionConfig()
+    return merge(commonConfig, productionConfig);
   }
-  return developmentConfig();
+  return merge(commonConfig, developmentConfig);
 };
