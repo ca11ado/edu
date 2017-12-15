@@ -1,41 +1,33 @@
-let webpack = require('webpack');
-let ExtractTextPlugin = require("extract-text-webpack-plugin");
-let path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-const PRODUCTION_PLUGINS = [
-  new webpack.DefinePlugin({
-    'process.env':{
-      'NODE_ENV': JSON.stringify('production')
-    }
-  }),
-  new webpack.optimize.UglifyJsPlugin({
-    compress:{
-      warnings: true
-    }
-  }),
-  new webpack.optimize.OccurrenceOrderPlugin()
-];
+const PATHS = {
+  app: path.join(__dirname, "src/frontend"),
+  build: path.join(__dirname, "public"),
+};
 
-module.exports = {
-  entry: './src/frontend/index.js',
+const commonConfig = {
+  entry: PATHS.app,
 
   output: {
-    path: path.join(__dirname, 'public'),
+    path: PATHS.build,
     filename: 'bundle.js',
     publicPath: '/'
   },
 
   plugins: [
-    ...(process.env.NODE_ENV === 'production' ? PRODUCTION_PLUGINS : []),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new HtmlWebpackPlugin({
+      template: path.join(PATHS.app, 'index.html')
+    })
   ],
 
   module: {
-    noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     loaders: [
       { test: /\.js$/, exclude: /node_modules\/(?!(t0s-components)\/).*/, loader: 'babel-loader?presets[]=env&presets[]=react' },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')},
-      { test: /\.json$/, loader: 'json-loader' }
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')}
     ]
   },
 
@@ -47,3 +39,27 @@ module.exports = {
   }
 };
 
+const productionConfig = () => {
+  const config = {};
+
+  return Object.assign({}, commonConfig, config);
+};
+const developmentConfig = () => {
+  const config = {
+    devServer: {
+      stats: 'errors-only',
+      host: process.env.HOST,
+      port: 3008,//process.env.PORT
+      historyApiFallback: true
+    }
+  };
+  
+  return Object.assign({}, commonConfig, config);
+};
+
+module.exports = env => {
+  if (env === 'production') {
+    return productionConfig()
+  }
+  return developmentConfig();
+};
