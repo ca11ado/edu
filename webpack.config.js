@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const merge = require("webpack-merge");
@@ -21,7 +20,6 @@ const commonConfig = merge([{
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       template: path.join(PATHS.app, 'index.html')
     })
@@ -33,16 +31,21 @@ const commonConfig = merge([{
     net: 'empty',
     tls: 'empty'
   }
-}, parts.loadCSS(), parts.loadReact()
+}, parts.loadReact()
 ]);
 
-const productionConfig = merge([]);
+const productionConfig = merge([
+  parts.extractCSS({
+    use: 'css-loader'
+  }),
+  parts.reactProduction()
+]);
 
 const developmentConfig = merge([
   parts.devServer({
     host: process.env.HOST,
     port: 3008 // process.env.PORT
-  })
+  }), parts.loadCSS()
 ]);
 
 module.exports = env => {
