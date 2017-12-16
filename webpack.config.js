@@ -11,7 +11,7 @@ const PATHS = {
   build: path.join(__dirname, "public"),
 };
 
-const commonConfig = {
+const commonConfig = merge([{
   entry: PATHS.app,
 
   output: {
@@ -27,20 +27,14 @@ const commonConfig = {
     })
   ],
 
-  module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node_modules\/(?!(t0s-components)\/).*/, loader: 'babel-loader?presets[]=env&presets[]=react' },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')}
-    ]
-  },
-
   node: {
     console: true,
     fs: 'empty',
     net: 'empty',
     tls: 'empty'
   }
-};
+}, parts.loadCSS(), parts.loadReact()
+]);
 
 const productionConfig = merge([]);
 
