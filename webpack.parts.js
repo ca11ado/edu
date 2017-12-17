@@ -32,8 +32,11 @@ exports.loadReact = () => ({
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader?presets[]=env&presets[]=react',
-        exclude: /node_modules/
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          presets: ['env', 'react']
+        }
       }
     ]
   }
@@ -74,4 +77,18 @@ exports.reactProduction = () => {
     ]
   };
 };
+
+exports.loadImages = ({ options } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        use: {
+          loader: 'url-loader', // uses file-loader implicitly when limit is set and both have to be installed
+          options
+        }
+      }
+    ]
+  }
+});
 

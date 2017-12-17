@@ -38,14 +38,20 @@ const productionConfig = merge([
   parts.extractCSS({
     use: 'css-loader'
   }),
-  parts.reactProduction()
+  parts.reactProduction(),
+  parts.loadImages({
+    options: {
+      limit: 15000,
+      name: '[name].[ext]'
+    }
+  })
 ]);
 
 const developmentConfig = merge([
   parts.devServer({
     host: process.env.HOST,
     port: 3008 // process.env.PORT
-  }), parts.loadCSS()
+  }), parts.loadCSS(), parts.loadImages()
 ]);
 
 module.exports = env => {
