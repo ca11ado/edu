@@ -12,7 +12,7 @@ sudo apt-get update
 sudo apt-get install mysql-server - здесь может спросить рутовый пароль, а может не спросить. По умолчанию рутовый пароль пустой.
 # sudo mysql_secure_installation - только на боевом сервере, на локальной машине не имеет смысла
 
-2) Настраиваем БД
+2) Настраиваем БД (в связи с тем, что в качестве БД сейчас используется SQlite, этот шаг можно пропустить)
 
 sudo mysql -u root -p - ввести рутовый пароль, когда спросит
 
@@ -75,7 +75,7 @@ sudo apt-get install supervisor
 
 sudo touch /etc/supervisor/conf.d/tracker.conf
 sudo chmod 777 /etc/supervisor/conf.d/tracker.conf
-sudo echo -e ' [program:tracker] \n command=/home/vagrant/venvgunicorn config.wsgi:application --bind 0.0.0.0:8080 -w 3 --timeout 600 --access-logfile /tmp/gunicorn.access-tracker.log --error-logfile /tmp/gunicorn.error-tracker.log' >> /etc/supervisor/conf.d/tracker.conf
+sudo echo -e ' [program:tracker] \n command=/home/vagrant/venvgunicorn config.wsgi:application --bind 0.0.0.0:8080 -w 1 --timeout 600 --access-logfile /tmp/gunicorn.access-tracker.log --error-logfile /tmp/gunicorn.error-tracker.log' >> /etc/supervisor/conf.d/tracker.conf
 sudo echo -e ' directory=/vagrant/tracker/src/backend/api \n user=vagrant \n autostart=true \n autorestart=true \n redirect_stderr=True' >> /etc/supervisor/conf.d/tracker.conf
 
 sudo supervisorctl reread
