@@ -40,7 +40,7 @@ pyvenv env
 5) Качаем проект
 
 cd /vagrant
-git clone https://github.com/ca11ado/edu.git tracker
+git clone git@github.com:ca11ado/edu.git tracker
 
 6) Ставим зависимости
 
