@@ -82,6 +82,10 @@ sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start tracker
 
-11) Готово!
+11) Прогоняем миграции
+
+/home/vagrant/venvmng migrate
+
+12) Готово!
 
 Сервер запускается автоматически на порту 8080.
