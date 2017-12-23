@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_DIR=/home/tracker/project
+PROJECT_DIR=/home/tracker/project/frontend
 HOME_DIR=/home/tracker
 LOG_DIR=$HOME_DIR/node-server-log
 NODE_SERVER_NAME="serverNode.js"
