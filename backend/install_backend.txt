@@ -44,7 +44,7 @@ git clone git@github.com:ca11ado/edu.git tracker
 
 6) Ставим зависимости
 
-/home/vagrant/tracker/env/bin/pip install -r  /vagrant/tracker/src/backend/requirements/base.txt
+/home/vagrant/tracker/env/bin/pip install -r  /vagrant/tracker/backend/requirements/base.txt
 
 7) Настраиваем окружение
 
@@ -52,7 +52,7 @@ mkdir /home/vagrant/tracker/envdir
 
 echo 'Vagrant' > /home/vagrant/tracker/envdir/DJANGO_CONFIGURATION
 
-echo -e '#!/bin/bash \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir/ /home/vagrant/tracker/env/bin/python3 /vagrant/tracker/src/backend/api/manage.py $*' > /home/vagrant/venvmng
+echo -e '#!/bin/bash \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir/ /home/vagrant/tracker/env/bin/python3 /vagrant/tracker/backend/api/manage.py $*' > /home/vagrant/venvmng
 
 echo -e '#!/bin/bash \nset -e \n/home/vagrant/tracker/env/bin/envdir /home/vagrant/tracker/envdir /home/vagrant/tracker/env/bin/pip $*' > /home/vagrant/venvpip
 
@@ -76,7 +76,7 @@ sudo apt-get install supervisor
 sudo touch /etc/supervisor/conf.d/tracker.conf
 sudo chmod 777 /etc/supervisor/conf.d/tracker.conf
 sudo echo -e ' [program:tracker] \n command=/home/vagrant/venvgunicorn config.wsgi:application --bind 0.0.0.0:8080 -w 1 --timeout 600 --access-logfile /tmp/gunicorn.access-tracker.log --error-logfile /tmp/gunicorn.error-tracker.log' >> /etc/supervisor/conf.d/tracker.conf
-sudo echo -e ' directory=/vagrant/tracker/src/backend/api \n user=vagrant \n autostart=true \n autorestart=true \n redirect_stderr=True' >> /etc/supervisor/conf.d/tracker.conf
+sudo echo -e ' directory=/vagrant/tracker/backend/api \n user=vagrant \n autostart=true \n autorestart=true \n redirect_stderr=True' >> /etc/supervisor/conf.d/tracker.conf
 
 sudo supervisorctl reread
 sudo supervisorctl update
