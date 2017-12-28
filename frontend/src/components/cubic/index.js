@@ -1,6 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import View from './view';
+import store from '../../store';
+import { connect } from 'react-redux'
+import { getCubic } from '../../api';
 
 const mapStateProps = state => {
   return {
@@ -8,6 +10,32 @@ const mapStateProps = state => {
   }
 };
 
+class Cubic extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+
+  componentDidMount () {
+    const id = this.props.params.cubicId;
+    getCubic(id)
+      .then((response) => {
+        store.dispatch({
+          type: 'SET_CUBIC',
+          id: response.id,
+          name: response.name,
+          content: response.content
+        });
+      });
+  }
+
+  render () {
+    return (
+      <View cubic={this.props.cubic} />
+    );
+  }
+}
+
 export default connect(
   mapStateProps
-)(View);
+)(Cubic);
+

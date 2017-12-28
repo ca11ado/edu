@@ -27,7 +27,7 @@ const Cubic = ({ match }) => (
   <Content>
     <h3>Cubic id: {match.params.cubicId}</h3>
     <div>
-      <Cubic2/>
+      <Cubic2 params={match.params} />
     </div>
   </Content>
 );

@@ -28,7 +28,6 @@ module.exports = function (req, res, next) {
   const pathEntity = sPath[2];
   const pathId = Number(sPath[3]);
 
-  console.log('path action:' + pathAction  + ', path entity: ' + pathEntity + ', path id: ' + pathId);
   if (!pathAction || !pathEntity) {
     return next();
   }

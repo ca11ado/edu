@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ cubic }) => {
+export default ({ cubic = {} }) => {
   return (
     <div>
       <h2>{cubic.name} -- {cubic.id}</h2>
@@ -8,3 +8,4 @@ export default ({ cubic }) => {
     </div>
   );
 };
+
