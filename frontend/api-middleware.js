@@ -3,19 +3,19 @@ const _request = require('request');
 const API_URL = 'http://127.0.0.1:35353';
 
 function request (path) {
-  return new Promise((res, rej) => {
+  return new Promise((promiseRes, promiseRej) => {
     _request(`${API_URL}/${path}`, (err, response, body) => {
       if (body) {
         let parsedBody;
         try {
           parsedBody = JSON.parse(body);
         } catch (e) {
-          console.log('%c some text %o', 'color:red', 'Parsing Error >>>', e);
+          promiseRej('parsing error');
         }
 
-        res(parsedBody);
+        promiseRes(parsedBody);
       } else {
-        rej(err);
+        promiseRej(err);
       }
     });
   });
@@ -32,13 +32,13 @@ module.exports = function (req, res, next) {
   if (!pathAction || !pathEntity) {
     return next();
   }
+  console.log('Request');
+  console.log(req.path);
 
   const path = pathAction + '/' + pathEntity + (pathId ? '/' + pathId : ''); 
   request(path)
     .then(function (response) {
-      console.log('>>> response');
-      console.log(response);
-      return res(response);
+      return res.json(response);
     })
     .catch(function (response) {
       console.log('>>> error');
