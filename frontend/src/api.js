@@ -1,6 +1,5 @@
 const _request = require('request');
-//const API_URL = 'http://92.53.77.254';
-const API_URL = 'http://127.0.0.1';
+const API_URL = 'http://92.53.77.254';
 
 function request (path) {
   return new Promise((res, rej) => {
