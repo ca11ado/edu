@@ -9,7 +9,7 @@ import {
 import Header from './components/page/header';
 import Footer from './components/page/footer';
 import Content from './components/page/content';
-import Cubic2 from './components/cubic';
+import Cubic from './components/cubic';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,16 +19,13 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-const Main = () => (
+const MainPage = () => (
   <Content>Главная страница</Content>
 );
 
-const Cubic = ({ match }) => (
+const CubicPage = ({ match }) => (
   <Content>
-    <h3>Cubic id: {match.params.cubicId}</h3>
-    <div>
-      <Cubic2 params={match.params} />
-    </div>
+      <Cubic params={match.params} />
   </Content>
 );
 
@@ -36,15 +33,15 @@ export default () => (
   <Router>
     <Wrapper>
       <Header>
-        <Link to="/">Main</Link>
+        <Link to="/">MainPage</Link>
         <Link to="/cubics/1">First Cubic</Link>
       </Header>
 
       <Route exact path="/" render={() => (
         <Redirect to="/cubics"/>
       )}/>
-      <Route exact path="/cubics" component={Main}/>
-      <Route path="/cubics/:cubicId" component={Cubic}/>
+      <Route exact path="/cubics" component={MainPage}/>
+      <Route path="/cubics/:cubicId" component={CubicPage}/>
 
       <Footer/>
     </Wrapper>

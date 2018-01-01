@@ -11,10 +11,6 @@ const mapStateProps = state => {
 };
 
 class Cubic extends React.Component {
-  constructor (props) {
-    super(props);
-  }
-
   componentDidMount () {
     const id = this.props.params.cubicId;
     getCubic(id)
