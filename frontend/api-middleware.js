@@ -28,11 +28,12 @@ module.exports = function (req, res, next) {
   const pathEntity = sPath[2];
   const pathId = Number(sPath[3]);
 
-  if (!pathAction || !pathEntity) {
-    return next();
-  }
   console.log('Request');
   console.log(req.path);
+
+  if (!pathAction || !pathEntity) {
+    return res.json({ error: 'api not found' });
+  }
 
   const path = pathAction + '/' + pathEntity + (pathId ? '/' + pathId : ''); 
   request(path)
@@ -42,7 +43,7 @@ module.exports = function (req, res, next) {
     .catch(function (response) {
       console.log('>>> error');
       console.log(response);
-      return next();
+      return res.json({ error: 'response error' });
     });
 };
 

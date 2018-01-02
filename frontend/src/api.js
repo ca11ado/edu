@@ -1,5 +1,5 @@
 const _request = require('request');
-const API_URL = 'http://92.53.77.254';
+const API_URL = 'http://92.53.77.254'; // todo add to env variables
 
 function request (path) {
   return new Promise((res, rej) => {
