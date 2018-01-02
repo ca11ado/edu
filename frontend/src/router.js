@@ -20,7 +20,16 @@ const Wrapper = styled.div`
 `;
 
 const MainPage = () => (
-  <Content>Главная страница</Content>
+  <Content>
+    <h1>Главная страница</h1>
+    <div>
+      Здесь когда-нибудь будет список всех доступных кубиков<br />
+      Вот несколько в качестве примера: 
+      <Link to="/cubic/1/"> раз</Link> и
+      <Link to="/cubic/2/"> два</Link> и 
+      <Link to="/cubic/3/"> три</Link>
+    </div>
+  </Content>
 );
 
 const CubicPage = ({ match }) => (
@@ -29,19 +38,24 @@ const CubicPage = ({ match }) => (
   </Content>
 );
 
+const TestComponent = () => {
+  return (<h6>test component</h6>);
+};
+
 export default () => (
   <Router>
     <Wrapper>
       <Header>
-        <Link to="/">MainPage</Link>
-        <Link to="/cubics/1">First Cubic</Link>
+        <Route path="/cubic" render={() => (
+          <Link to="/">MainPage</Link>
+        )} />
       </Header>
 
       <Route exact path="/" render={() => (
         <Redirect to="/cubics"/>
       )}/>
       <Route exact path="/cubics" component={MainPage}/>
-      <Route path="/cubics/:cubicId" component={CubicPage}/>
+      <Route path="/cubic/:cubicId" component={CubicPage}/>
 
       <Footer/>
     </Wrapper>
