@@ -1,9 +1,4 @@
-const mvpCubic = {
-  id: NaN,
-  name: 'Not found'
-};
-
-const cubic = (state = mvpCubic, action) => {
+const cubic = (state = {}, action) => {
   switch (action.type) {
     case 'SET_CUBIC':
       return Object.assign({}, state, {
