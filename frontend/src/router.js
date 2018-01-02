@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Redirect,
+  Switch
 } from 'react-router-dom'
 import Header from './components/page/header';
 import Footer from './components/page/footer';
@@ -38,8 +39,8 @@ const CubicPage = ({ match }) => (
   </Content>
 );
 
-const TestComponent = () => {
-  return (<h6>test component</h6>);
+const NotFoundPage = () => {
+  return (<h1>404 page</h1>);
 };
 
 export default () => (
@@ -51,13 +52,17 @@ export default () => (
         )} />
       </Header>
 
-      <Route exact path="/" render={() => (
-        <Redirect to="/cubics"/>
-      )}/>
-      <Route exact path="/cubics" component={MainPage}/>
-      <Route path="/cubic/:cubicId" component={CubicPage}/>
+      <Switch>
+        <Route exact path="/" render={() => (
+          <Redirect to="/cubics"/>
+        )}/>
+        <Route exact path="/cubics" component={MainPage}/>
+        <Route path="/cubic/:cubicId" component={CubicPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
 
       <Footer/>
+
     </Wrapper>
   </Router>
 );
