@@ -60,6 +60,10 @@ if [ $# -gt 0 ]; then
     if [ "$2" == "-stop" ]; then
       get_server_pid ${PROJECT_DIR}/${NODE_SERVER_NAME} | xargs kill
     fi
+    if [ "$2" == "-restart" ]; then
+      get_server_pid ${PROJECT_DIR}/${NODE_SERVER_NAME} | xargs kill
+      run_node_server ${PROJECT_DIR} ${NODE_SERVER_NAME}
+    fi
     if [ "$2" == "-status" ]; then
       re='^[0-9]+$'
       SERVER_PID=$(get_server_pid ${PROJECT_DIR}/${NODE_SERVER_NAME})
