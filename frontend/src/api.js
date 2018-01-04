@@ -28,3 +28,8 @@ export const getCubic = (id) => {
   return request(path);
 };
 
+export const getCubics = () => {
+  const path = 'api/get/cubics';
+  return request(path);
+};
+

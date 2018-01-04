@@ -11,6 +11,7 @@ import Header from './components/page/header';
 import Footer from './components/page/footer';
 import Content from './components/page/content';
 import Cubic from './components/cubic';
+import Cubics from './components/cubics';
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,13 +24,7 @@ const Wrapper = styled.div`
 const MainPage = () => (
   <Content>
     <h1>Главная страница</h1>
-    <div>
-      Здесь когда-нибудь будет список всех доступных кубиков<br />
-      Вот несколько в качестве примера: 
-      <Link to="/cubic/1/"> раз</Link> и
-      <Link to="/cubic/2/"> два</Link> и 
-      <Link to="/cubic/3/"> три</Link>
-    </div>
+    <Cubics />
   </Content>
 );
 
