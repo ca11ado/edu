@@ -2,6 +2,13 @@ const _ = require('lodash');
 const _request = require('request');
 const API_URL = 'http://127.0.0.1:35353';
 
+const ALLOWED_REQUESTS = [
+  'get/cubic',
+  'get/cubics',
+  'get/tag',
+  'get/tags'
+];
+
 function request (path) {
   return new Promise((promiseRes, promiseRej) => {
     _request(`${API_URL}/${path}`, (err, response, body) => {
@@ -33,6 +40,10 @@ module.exports = function (req, res, next) {
 
   if (!pathAction || !pathEntity) {
     return res.json({ error: 'api not found' });
+  }
+
+  if (ALLOWED_REQUESTS.indexOf(`${pathAction}/${pathEntity}`) === -1) {
+    return;
   }
 
   const path = pathAction + '/' + pathEntity + (pathId ? '/' + pathId : ''); 
