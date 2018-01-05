@@ -43,7 +43,7 @@ module.exports = function (req, res, next) {
   }
 
   if (ALLOWED_REQUESTS.indexOf(`${pathAction}/${pathEntity}`) === -1) {
-    return;
+    return res.json({ error: 'api not found' });
   }
 
   const path = pathAction + '/' + pathEntity + (pathId ? '/' + pathId : ''); 
