@@ -29,3 +29,21 @@ class CubicConnection(models.Model):
 
     def __str__(self):
         return 'Connection'
+
+    @staticmethod
+    def get_parents(cubic_id):
+        result = []
+        parents = CubicConnection.objects.filter(child=cubic_id)
+        for parent in parents:
+            result.append({'id': parent.id, 'name': parent.name})
+        return result
+
+    @staticmethod
+    def get_children(cubic_id):
+        result = []
+        children = CubicConnection.objects.filter(parent=cubic_id)
+        for child in children:
+            result.append({'id': child.id, 'name': child.name})
+        return result
+
+
