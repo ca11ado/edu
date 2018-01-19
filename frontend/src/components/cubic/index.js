@@ -14,12 +14,14 @@ class Cubic extends React.Component {
   componentDidMount () {
     const id = this.props.params.cubicId;
     getCubic(id)
-      .then((response) => {
+      .then(({ id, name, content, children, parents }) => {
         store.dispatch({
           type: 'SET_CUBIC',
-          id: response.id,
-          name: response.name,
-          content: response.content
+          id,
+          name,
+          content,
+          children,
+          parents
         });
       });
   }
