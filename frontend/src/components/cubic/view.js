@@ -23,12 +23,12 @@ export default ({ cubic = {} }) => {
       <div>{cubic.content}</div>
       <RelatedCubics>
         <div>
-          <ul>Родители
+          <ul>{parentsList.length ? 'Родительские кубики' : 'Нет родительских кубиков'}
             {parentsList}
           </ul>
         </div>
         <div>
-          <ul>Дети
+          <ul>{childrenList.length ? 'Дочерние кубики' : 'Нет дочерних кубиков'}
             {childrenList}
           </ul>
         </div>
