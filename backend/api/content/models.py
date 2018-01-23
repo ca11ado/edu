@@ -33,17 +33,17 @@ class CubicConnection(models.Model):
     @staticmethod
     def get_parents(cubic_id):
         result = []
-        parents = CubicConnection.objects.filter(child=cubic_id)
-        for parent in parents:
-            result.append({'id': parent.id, 'name': parent.name})
+        connections = CubicConnection.objects.filter(child=cubic_id)
+        for con in connections:
+            result.append({'id': con.parent.id, 'name': con.parent.name})
         return result
 
     @staticmethod
     def get_children(cubic_id):
         result = []
-        children = CubicConnection.objects.filter(parent=cubic_id)
-        for child in children:
-            result.append({'id': child.id, 'name': child.name})
+        connections = CubicConnection.objects.filter(parent=cubic_id)
+        for con in connections:
+            result.append({'id': con.child.id, 'name': con.child.name})
         return result
 
 
