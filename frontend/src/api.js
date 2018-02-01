@@ -1,5 +1,5 @@
 const _request = require('request');
-const API_URL = 'http://92.53.77.254'; // todo add to env variables
+const API_URL = 'http://92.53.77.254:35353'; // todo add to env variables
 
 function request (path) {
   return new Promise((res, rej) => {
@@ -24,12 +24,12 @@ export const getCubic = (id) => {
   if (!id) {
     throw Error(`You should define id: ${id}`);
   }
-  const path = `api/get/cubic/${id}`;
+  const path = `get/cubic/${id}`;
   return request(path);
 };
 
 export const getCubics = () => {
-  const path = 'api/get/cubics';
+  const path = 'get/cubics';
   return request(path);
 };
 
