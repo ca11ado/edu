@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { map, remove, isUndefined } from 'lodash/fp';
+import { map, remove, isUndefined, flatten } from 'lodash/fp';
 import Graph from './graph';
 import store from '../../store';
 import { connect } from 'react-redux'
@@ -34,6 +34,7 @@ class Cubics extends React.Component {
       );
     });
 
+    /*
     const links = _.flow(
       map(({ name, children = [] }) => {
         return children.length
@@ -41,6 +42,12 @@ class Cubics extends React.Component {
           : undefined;
       }),
       remove(isUndefined)
+    )(this.props.cubics);
+    */
+    const links = _.flow(
+      map(({ name, children = [] }) => _.map(children, child => ({ source: name, target: child.name }))),
+      remove(isUndefined),
+      flatten
     )(this.props.cubics);
     const normalizedCubics = {
       nodes: _.map(this.props.cubics, ({ id, name }) => ({ id: name })),
