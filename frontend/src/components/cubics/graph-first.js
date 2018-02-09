@@ -100,7 +100,7 @@ export default class CubicsGruph extends React.Component {
 
     return (
       <div>
-        <h2>Graph experiment</h2>
+        <h2>First Graph</h2>
         <canvas ref={node => this.node = node} width="500" height="500"></canvas>
       </div>
     );
