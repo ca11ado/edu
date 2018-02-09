@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
-import View from './view';
+import { map, remove, isUndefined, flatten } from 'lodash/fp';
+import Graph from './graph';
 import store from '../../store';
 import { connect } from 'react-redux'
-import { getCubic, getCubics } from '../../api';
+import { getCubics } from '../../api';
 import { Link } from 'react-router-dom';
 
 const mapStateProps = state => {
@@ -33,9 +34,30 @@ class Cubics extends React.Component {
       );
     });
 
+    /*
+    const links = _.flow(
+      map(({ name, children = [] }) => {
+        return children.length
+          ? { source: name, target: children[0].name }
+          : undefined;
+      }),
+      remove(isUndefined)
+    )(this.props.cubics);
+    */
+    const links = _.flow(
+      map(({ name, children = [] }) => _.map(children, child => ({ source: name, target: child.name }))),
+      remove(isUndefined),
+      flatten
+    )(this.props.cubics);
+    const normalizedCubics = {
+      nodes: _.map(this.props.cubics, ({ id, name }) => ({ id: name })),
+      links
+    };
+
     return (
       <div>
-        { cubics }
+        {cubics}
+        <Graph data={normalizedCubics}/>
       </div>
     );
   }
