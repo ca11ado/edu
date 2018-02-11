@@ -1,17 +1,36 @@
 import React from 'react';
 import _ from 'lodash';
 import { map, remove, isUndefined, flatten } from 'lodash/fp';
-import Graph from './graph';
+import GraphFirst from './graph-first';
+import GraphSecond from './graph-second';
 import store from '../../store';
 import { connect } from 'react-redux'
 import { getCubics } from '../../api';
 import { Link } from 'react-router-dom';
+import GraphsMenu from './graphs-menu';
+import styled from 'styled-components';
+
+const GraphWrapper = styled.div`
+  margin-top: 50px;
+`;
 
 const mapStateProps = state => {
   return {
-    cubics: state.cubics
+    cubics: state.cubics,
+    graph: state.graph
   }
 };
+
+function getCurrentGraph (id, data) {
+  switch (id) {
+    case 1:
+      return <GraphFirst data={data}/>;
+    case 2:
+      return <GraphSecond data={data}/>;
+    default:
+      return 'Nothing here';
+  }
+}
 
 class Cubics extends React.Component {
   componentDidMount () {
@@ -34,21 +53,15 @@ class Cubics extends React.Component {
       );
     });
 
-    /*
     const links = _.flow(
-      map(({ name, children = [] }) => {
-        return children.length
-          ? { source: name, target: children[0].name }
-          : undefined;
-      }),
-      remove(isUndefined)
-    )(this.props.cubics);
-    */
-    const links = _.flow(
-      map(({ name, children = [] }) => _.map(children, child => ({ source: name, target: child.name }))),
+      map(({ name, children = [] }) => _.map(children, child => ({
+        source: name,
+        target: child.name
+      }))),
       remove(isUndefined),
       flatten
     )(this.props.cubics);
+
     const normalizedCubics = {
       nodes: _.map(this.props.cubics, ({ id, name }) => ({ id: name })),
       links
@@ -57,7 +70,10 @@ class Cubics extends React.Component {
     return (
       <div>
         {cubics}
-        <Graph data={normalizedCubics}/>
+        <GraphWrapper>
+          <GraphsMenu />
+          {getCurrentGraph(this.props.graph.id, normalizedCubics)}
+        </GraphWrapper>
       </div>
     );
   }
