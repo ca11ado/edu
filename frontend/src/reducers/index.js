@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import cubic from './cubic';
 import cubics from './cubics';
-import graph from './graph';
+import menu from './menu';
 
 const app = combineReducers({
   cubic,
   cubics,
-  graph
+  menu
 });
 
 export default app;

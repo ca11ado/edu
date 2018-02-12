@@ -1,6 +1,6 @@
-const graph = (state = { id: 2 }, action) => {
+const menu = (state = { id: 3 }, action) => {
   switch (action.type) {
-    case 'SET_GRAPH':
+    case 'SET_MENU':
       return Object.assign({}, state, {
         id: action.id
       });
@@ -9,5 +9,5 @@ const graph = (state = { id: 2 }, action) => {
   }
 };
 
-export default graph;
+export default menu;
 
