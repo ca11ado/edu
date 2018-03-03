@@ -23,7 +23,6 @@ const Wrapper = styled.div`
 
 const MainPage = () => (
   <Content>
-    <h1>Главная страница</h1>
     <Cubics />
   </Content>
 );

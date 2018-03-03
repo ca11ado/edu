@@ -22,13 +22,13 @@ export default class CubicsGruph extends React.Component {
   createElement () {
 
     this.dm = {
-      width: 500,
-      height: 500,
+      width: 800,
+      height: 600,
       m: {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
+        top: 10,
+        bottom: 10,
+        left: 10,
+        right: 10
       }
     };
 
@@ -54,7 +54,7 @@ export default class CubicsGruph extends React.Component {
     var thisOpacity;
     var simulation = d3.forceSimulation()
       // pull nodes together based on the links between them
-      .force("link", d3.forceLink().id(d => d.id).strength(0.025))
+      .force("link", d3.forceLink().id(d => d.id).strength(1)) // last 0.025
       // push nodes apart to space them out
       .force("charge", d3.forceManyBody().strength(-200))
       // add some collision detection so they don't overlap

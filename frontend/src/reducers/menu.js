@@ -1,4 +1,4 @@
-const menu = (state = { id: 3 }, action) => {
+const menu = (state = { id: 2 }, action) => {
   switch (action.type) {
     case 'SET_MENU':
       return Object.assign({}, state, {

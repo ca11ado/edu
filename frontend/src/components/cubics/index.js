@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Graph from './graph';
 
 const GraphWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 10px;
 `;
 
 export default class Cubics extends React.Component {
