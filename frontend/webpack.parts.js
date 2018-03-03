@@ -35,7 +35,8 @@ exports.loadReact = () => ({
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          presets: ['env', 'react']
+          presets: ['env', 'react'],
+          plugins: ['babel-plugin-styled-components']
         }
       }
     ]
