@@ -14,10 +14,6 @@ import Cubic from './components/cubic';
 import Cubics from './components/cubics';
 
 const Wrapper = styled.div`
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
   text-align: center;
 `;
 
