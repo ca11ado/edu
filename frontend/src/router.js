@@ -54,9 +54,9 @@ export default () => (
         <Route path="/cubic/:cubicId" component={CubicPage} />
         <Route component={NotFoundPage} />
       </Switch>
-
-      <Footer/>
-
+      <Route path="/cubic" render={() => (
+        <Footer />
+      )} />
     </Wrapper>
   </Router>
 );

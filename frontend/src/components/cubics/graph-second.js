@@ -22,8 +22,8 @@ export default class CubicsGruph extends React.Component {
   createElement () {
 
     this.dm = {
-      width: 800,
-      height: 600,
+      width: 1000,
+      height: 1000,
       m: {
         top: 10,
         bottom: 10,
