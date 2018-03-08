@@ -50,16 +50,16 @@ class Graph extends React.Component {
 
   render () {
     const links = _.flow(
-      map(({ name, children = [] }) => _.map(children, child => ({
-        source: name,
-        target: child.name
+      map(({ id, name, children = [] }) => _.map(children, child => ({
+        source: id,
+        target: child.id
       }))),
       remove(isUndefined),
       flatten
     )(this.props.cubics);
 
     const normalizedCubics = {
-      nodes: _.map(this.props.cubics, ({ id, name }) => ({ id: name })),
+      nodes: _.map(this.props.cubics, ({ id, name }) => ({ id: id, name: name })),
       links
     };
 

@@ -98,7 +98,7 @@ export default class CubicsGruph extends React.Component {
     node.append("text")
       .attr("dx", 12)
       .attr("dy", ".35em")
-      .text(d => d.id)
+      .text(d => d.name)
       .style("stroke", "black")
       .style("stroke-width", 0.5)
       .style('fill', d => (d.colour || '#dc241f'));
