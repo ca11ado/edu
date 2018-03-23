@@ -1,4 +1,4 @@
-const menu = (state = { id: 2 }, action) => {
+const menu = (state = { id: 4 }, action) => {
   switch (action.type) {
     case 'SET_MENU':
       if (state.id === action.id) {

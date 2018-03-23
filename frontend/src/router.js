@@ -15,13 +15,17 @@ import Cubics from './components/cubics';
 
 const Wrapper = styled.div`
   text-align: center;
+  height: 100%;
 `;
 
-const MainPage = () => (
-  <Content>
-    <Cubics />
-  </Content>
-);
+const MainPage = ({ location }) => {
+  const params = new URLSearchParams(location.search);
+  return (
+    <Content>
+      <Cubics parents={params.get('parents')} />
+    </Content>
+  );
+};
 
 const CubicPage = ({ match }) => (
   <Content>

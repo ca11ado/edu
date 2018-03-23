@@ -21,6 +21,12 @@ function setListMenu () {
     id: 3
   });
 }
+function setThirdGraph () {
+  store.dispatch({
+    type: 'SET_MENU',
+    id: 4
+  });
+}
 
 
 export default () => {
@@ -29,6 +35,7 @@ export default () => {
       <button onClick={setFirstGraph}>first</button>
       <button onClick={setSecondGraph}>second</button>
       <button onClick={setListMenu}>list</button>
+      <button onClick={setThirdGraph}>third</button>
     </div>
   );
 };

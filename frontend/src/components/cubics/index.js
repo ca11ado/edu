@@ -5,18 +5,16 @@ import Graph from './graph';
 
 const GraphWrapper = styled.div`
   margin-top: 10px;
+  height: 100%;
 `;
 
 export default class Cubics extends React.Component {
   render () {
-
     return (
-      <div>
-        <GraphWrapper>
-          <Menu />
-          <Graph />
-        </GraphWrapper>
-      </div>
+      <GraphWrapper>
+        <Menu />
+        <Graph parents={this.props.parents} />
+      </GraphWrapper>
     );
   }
 }
