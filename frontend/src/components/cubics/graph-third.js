@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import * as d3 from 'd3';
 import styled from 'styled-components';
 import { times, map, filter, some } from 'lodash';
@@ -120,11 +121,19 @@ export default class CubicsGruph extends React.Component {
     })
   }
 
+  clickMe (history) {
+    console.log('%c some text %o', 'color:red', 'i was clicked');
+    history.push('/test');
+  }
+
   render () {
-    return (
-      <GraphWrapper innerRef={ node => this.wrapper = node }>
+    const Graph = withRouter(({ history }) => (
+      <GraphWrapper innerRef={ node => this.wrapper = node } onClick={this.clickMe.bind(this, history)}>
         <svg ref={ node => this.node = node }></svg>
       </GraphWrapper>
+    ));
+    return (
+      <Graph />
     );
   }
 }
