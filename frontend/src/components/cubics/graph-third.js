@@ -85,7 +85,10 @@ export default class CubicsGruph extends React.Component {
     cubics
       .append('circle')
       .attr('r', radius)
-      .style('fill', COLOR_CUBIC);
+      .style('fill', COLOR_CUBIC)
+      .attr('class', 'cubic')
+      .attr('data-id', ({ id }) => id)
+      .attr('data-has-children', ({ children }) => children.length);
 
     cubics
       .append('text')
@@ -95,14 +98,6 @@ export default class CubicsGruph extends React.Component {
       .style("stroke", "black")
       .style("stroke-width", 0.5)
       .style('fill', '#dc241f');
-
-    cubics
-      .on('click', ({ name, children, id }) => {
-        if (children.length) {
-          // todo i should use Router instead
-          location.href = `/cubics?parents=${id}`;
-        }
-      });
 
     simulation.nodes(sourceArray).on('tick', () => {
       cubics.attr('transform', (d) => {
@@ -121,14 +116,20 @@ export default class CubicsGruph extends React.Component {
     })
   }
 
-  clickMe (history) {
-    console.log('%c some text %o', 'color:red', 'i was clicked');
-    history.push('/test');
+  static clickMe (history, e) {
+    const target = e.target;
+    if (target.classList.contains('cubic')) {
+      const hasChildren = target.dataset.hasChildren !== '0';
+      hasChildren && history.push(`?parents=${target.dataset.id}`);
+    }
   }
 
   render () {
     const Graph = withRouter(({ history }) => (
-      <GraphWrapper innerRef={ node => this.wrapper = node } onClick={this.clickMe.bind(this, history)}>
+      <GraphWrapper
+        innerRef={ node => this.wrapper = node }
+        onClick={this.constructor.clickMe.bind(this, history)}
+      >
         <svg ref={ node => this.node = node }></svg>
       </GraphWrapper>
     ));
